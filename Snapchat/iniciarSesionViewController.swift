@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import FBSDKLoginKit
 
 class iniciarSesionViewController: UIViewController {
     
@@ -15,6 +16,8 @@ class iniciarSesionViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var passwordTextField: UITextField!
+    
+    
     
     
     @IBAction func iniciarSesionTapped(_ sender: Any) {
@@ -30,7 +33,14 @@ class iniciarSesionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        let loginButton = FBLoginButton()
+                loginButton.center = view.center
+                view.addSubview(loginButton)
+        if let token = AccessToken.current,
+                !token.isExpired {
+                // User is logged in, do work such as go to next view controller.
+            }
+        loginButton.permissions = ["public_profile", "email"]
     }
 
 
